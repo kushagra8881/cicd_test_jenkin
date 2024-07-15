@@ -1,3 +1,21 @@
+Metadata-Version: 2.1
+Name: prediction-module
+Version: 1.0.0
+Summary: Loan Prediction Model
+Home-page: https://github.com/kushagra8881
+Author: kushagra parasjar
+Author-email: kushagraparashar900@gmail.com
+License: MIT
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Requires-Python: >=3.7.0
+Description-Content-Type: text/markdown
+
+
 # Setup Virtual Environment
 
 ```python
