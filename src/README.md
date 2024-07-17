@@ -31,16 +31,25 @@ pip install .
 # Docker Commands
 ```
 docker build -t loan_pred:v1 .
-docker build -t manifoldailearning/cicd:latest . 
-docker push manifoldailearning/cicd:latest
+docker build -t  kushaggra0001/loan_pred:latest . 
+docker push  kushagra0001/loan_pred:latest 
 
-docker run -d -it --name modelv1 -p 8005:8005 manifoldailearning/cicd:latest bash
 
-docker exec modelv1 python prediction_model/training_pipeline.py
+docker run -d -it --name modelv1 -p 8005:8005 kushagra0001/loan_pred:latest  bash
 
-docker exec modelv1 pytest -v --junitxml TestResults.xml --cache-clear
+docker exec modelv1 python prediction_module/training_pipeline.py
+docker exec modelv1 pytest -v --junitxml=TestResults.xml --cache-clear
 
+# Copy the test results from the container to the host
 docker cp modelv1:/code/src/TestResults.xml .
+
+# Check if the test results file exists and is not empty
+if [ -s TestResults.xml ]; then
+    echo "Test results were successfully copied"
+else
+    echo "Test results file is missing or empty" >&2
+    exit 1
+fi
 
 docker exec -d -w /code modelv1 python main.py
 
@@ -111,11 +120,46 @@ sudo usermod -a -G docker $USER
 docker remove $(docker ps -a -q)
 docker images --format "{{.ID}} {{.CreatedAt}}" | sort -rk 2 | awk 'NR==1{print $1}'
 
+# before doing this do all adjustment in jenkins
+
 
 
 # Create Stage Branch
 `git checkout -b staging`
 `git push `
 
+# DOCKE R COMMANDS IN 
+4 project work as triggers
+1 JENKINS-1-1
+take pull of ggit hub repo
+https://github.com/kushagra8881/cicd_test_jenkin
+
+then byild it an connevt to docler hub
+docker build -t  kushaggra0001/loan_pred:latest . 
+docker push  kushagra0001/loan_pred:latest 
+
+and ive me email notifiactiobn
 
 
+2 training 
+
+docker run -d -it --name modelv1 -p 8005:8005 kushagra0001/loan_pred:latest  bash
+
+3 testing
+
+
+# Copy the test results from the container to the host
+docker cp modelv1:/code/src/TestResults.xml .
+
+# Check if the test results file exists and is not empty
+if [ -s TestResults.xml ]; then
+    echo "Test results were successfully copied"
+else
+    echo "Test results file is missing or empty" >&2
+    exit 1
+fi
+4 deploy as api
+
+
+
+docker exec -d -w /code modelv1 python main.py
